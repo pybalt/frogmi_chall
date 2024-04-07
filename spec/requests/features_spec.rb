@@ -9,6 +9,10 @@ describe 'Features API' do
       tags 'Features'
       produces 'application/json'
 
+      parameter name: :'filters[mag_type]', in: :query, type: :array, items: { type: :string }, description: 'Filter results by mag_type. Can be more than one. Possible values: md, ml, ms, mw, me, mi, mb, mlg.'
+      parameter name: :page, in: :query, type: :integer, description: 'Page number'
+      parameter name: :per_page, in: :query, type: :integer, description: 'Number of results per page. Must be less than or equal to 1000.'
+
       response '200', 'features found' do
         schema type: :object,
           properties: {
