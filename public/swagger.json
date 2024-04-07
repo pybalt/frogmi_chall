@@ -9,7 +9,7 @@
       "post": {
         "summary": "Creates a comment for a feature",
         "tags": [
-          "Comments"
+          "Features"
         ],
         "consumes": [
           "application/json"

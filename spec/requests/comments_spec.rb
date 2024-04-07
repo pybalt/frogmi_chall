@@ -6,7 +6,7 @@ describe 'Comments API' do
   path '/api/features' do
 
     post 'Creates a comment for a feature' do
-      tags 'Comments'
+      tags 'Features'
       consumes 'application/json'
       parameter name: :comment, in: :body, schema: {
         type: :object,
