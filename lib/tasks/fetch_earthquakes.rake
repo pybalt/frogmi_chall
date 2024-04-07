@@ -12,8 +12,26 @@ namespace :earthquakes do
       id = feature['id']
       next if Earthquake.exists?(id: id)
 
+      properties = feature['properties']
+      geometry = feature['geometry']
+
+      mag = properties['mag']
+      place = properties['place']
+      time = properties['time']
+      url = properties['url']
+      tsunami = properties['tsunami']
+      magType = properties['magType']
+      title = properties['title']
+      longitude = geometry['coordinates'][0]
+      latitude = geometry['coordinates'][1]
+
+      next if title.nil? || url.nil? || place.nil? || magType.nil? || geometry['coordinates'].nil?
+      next if mag < -1.0 || mag > 10.0
+      next if latitude < -90.0 || latitude > 90.0
+      next if longitude < -180.0 || longitude > 180.0
+
       Earthquake.create(
-        id: id,
+        external_id: id,
         mag: feature['properties']['mag'],
         place: feature['properties']['place'],
         time: feature['properties']['time'],

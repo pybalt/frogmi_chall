@@ -1,7 +1,7 @@
 class CreateEarthquakes < ActiveRecord::Migration[7.1]
   def change
-    create_table :earthquakes, id: false do |t|
-      t.string :id, primary_key: true, null: false
+    create_table :earthquakes do |t|
+      t.string :external_id, null: false
       t.decimal :mag
       t.string :place, null: false
       t.integer :time, limit: 8

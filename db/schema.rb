@@ -10,8 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_07_040330) do
-  create_table "earthquakes", id: :string, force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2024_04_07_051541) do
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "earthquake_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["earthquake_id"], name: "index_comments_on_earthquake_id"
+  end
+
+  create_table "earthquakes", force: :cascade do |t|
+    t.string "external_id", null: false
     t.decimal "mag"
     t.string "place", null: false
     t.integer "time", limit: 8
@@ -25,4 +34,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_07_040330) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "earthquakes"
 end
