@@ -6,44 +6,6 @@
   },
   "paths": {
     "/api/features": {
-      "post": {
-        "summary": "Creates a comment for a feature",
-        "tags": [
-          "Features"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "comment",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "feature_id": {
-                  "type": "integer"
-                },
-                "body": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "feature_id",
-                "body"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "comment created"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      },
       "get": {
         "summary": "Retrieves features",
         "tags": [
@@ -188,6 +150,44 @@
                 "pagination"
               ]
             }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a comment for a feature",
+        "tags": [
+          "Features"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "comment",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "feature_id": {
+                  "type": "integer"
+                },
+                "body": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "feature_id",
+                "body"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "comment created"
+          },
+          "422": {
+            "description": "invalid request"
           }
         }
       }

@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   namespace :api do
-      resources :earthquakes, only: [:index], path: 'features'
-      resources :comments, only: [:create], path: 'features'
+    resources :earthquakes, only: [:index, :create], path: 'features'
   end
-
+  match '/api/features', to: 'api/earthquakes#index', via: [:options]
 end
