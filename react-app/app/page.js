@@ -1,12 +1,13 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
-  return Component();
+  return Layout();
 }
 
-function Component() {
+function Layout() {
   return (
     <div key="1" className="px-4 md:px-6 lg:px-8 pb-4 md:pb-8">
       <div className="grid gap-4">
