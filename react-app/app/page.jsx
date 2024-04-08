@@ -1,13 +1,16 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import useFeatures from "./hook";
+import RowComponent from "./components/RowComponent";
 
 export default function Home() {
-  return Layout();
+  const { data, loading, error } = useFeatures();
+  console.log(data);
+  return <Layout loading={loading} data={data}/>;
 }
 
-function Layout() {
+function Layout({loading, data}) {
   return (
     <div key="1" className="px-4 md:px-6 lg:px-8 pb-4 md:pb-8">
       <div className="grid gap-4">
@@ -48,52 +51,23 @@ function Layout() {
               View comments
             </Button>
           </div>
-          <div className="grid grid-cols-3 p-4 items-center gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
-            <div>Earthquake in the Last 30 Days</div>
-            <div className="hidden sm:flex">San Francisco, CA</div>
-            <div className="hidden sm:flex">4.5</div>
-            <div className="hidden sm:flex">2024-03-01 08:00</div>
-            <div className="hidden sm:flex">No</div>
-            <div className="hidden sm:flex">Mw</div>
-            <div className="hidden sm:flex">
-              <Link className="underline" href="#">
-                View on USGS
-              </Link>
-            </div>
-            <div className="hidden sm:flex">37.7749° N</div>
-            <div className="hidden sm:flex">122.4194° W</div>
-            <Button
-              className="rounded-full gap-0 ml-auto"
-              size="sm"
-              variant="outline"
-            >
-              View comments
-            </Button>
-          </div>
-          <div className="grid grid-cols-3 p-4 items-center gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
-            <div>Earthquake in the Last 30 Days</div>
-            <div className="hidden sm:flex">Los Angeles, CA</div>
-            <div className="hidden sm:flex">5.2</div>
-            <div className="hidden sm:flex">2024-03-15 14:30</div>
-            <div className="hidden sm:flex">Yes</div>
-            <div className="hidden sm:flex">Mw</div>
-            <div className="hidden sm:flex">
-              <Link className="underline" href="#">
-                View on USGS
-              </Link>
-            </div>
-            <div className="hidden sm:flex">34.0522° N</div>
-            <div className="hidden sm:flex">118.2437° W</div>
-            <Button
-              className="rounded-full gap-0 ml-auto"
-              size="sm"
-              variant="outline"
-            >
-              View comments
-            </Button>
-          </div>
+          {console.log(data)}
+          {data && data.map((row, index) => (
+            <RowComponent
+              key={index}
+              title={row.attributes.title}
+              location={row.attributes.place}
+              magnitude={row.attributes.magnitude}
+              time={new Date(row.attributes.time).toDateString()}
+              tsunami={row.attributes.tsunami ? 'Yes' : 'No'}
+              type={row.type}
+              url={row.links.external_url}
+              latitude={row.attributes.coordinates.latitude}
+              longitude={row.attributes.coordinates.longitude}
+            />
+            ))}
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-end justify-center">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
               <span className="font-medium">1-10 of 1,000</span>
