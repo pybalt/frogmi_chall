@@ -14,7 +14,7 @@ const RowComponent = ({
   longitude,
 }) => {
   return (
-    <div className="grid grid-cols-3 p-4 items-center gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
+    <div className="grid text-sm grid-cols-3 p-4 items-center gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
       <div>{title}</div>
       <div className="hidden sm:flex">{location}</div>
       <div className="hidden sm:flex">{magnitude}</div>
