@@ -1,5 +1,4 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useFeatures from "./hook";
 import RowComponent from "./components/RowComponent";
@@ -9,12 +8,33 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [pagNumber, setPagNumber] = useState(1);
   const [pagSize, setPagSize] = useState(4); 
-  const filterOptions = [
-    'md', 'ml', 'ms', 'mw', 'me', 'mi', 'mb', 'mlg'
-  ]
-
-  const [filter, setFilter] = useState(['ml', 'mb', 'ms'])
+  const [filterOptions, setFilterOptions] = useState([
+    {value: 'md', bool: false},
+    {value: 'ml', bool: false},
+    {value: 'ms', bool: false},
+    {value: 'mw', bool: false},
+    {value: 'me', bool: false},
+    {value: 'mi', bool: false},
+    {value: 'mb', bool: false},
+    {value: 'mlg', bool: false}
+  ])
+  const [triggerSearch, setTriggerSearch] = useState(false)
+  const [filter, setFilter] = useState([])
   const {data, error, loading, pagination, incrementPageNumber, decrementPageNumber} = useFeatures(pagNumber, pagSize, setPagNumber, filter);
+  
+  const handleSearchClick = () => {
+    setTriggerSearch(p => !p);
+  }
+  const switchFilter = (index) => {
+    const newFilterOptions = [...filterOptions];
+    newFilterOptions[index].bool = !newFilterOptions[index].bool;
+    setFilterOptions(newFilterOptions);
+  }
+
+  useEffect(() => {
+    const filterValues = filterOptions.filter(option => option.bool).map(option => option.value)
+    setFilter(filterValues)
+  }, [triggerSearch]);
 
   return (
   <div key="1" className="px-4 md:px-6 lg:px-8 pb-4 md:pb-8">
@@ -29,9 +49,21 @@ export default function Home() {
       </div>
       <div className="grid gap-2">
         <div className="flex items-center gap-2">
-          <Button>
+          <Button onClick={handleSearchClick}>
           <SearchIcon className="w-4 h-4 fill-gray-500" />
           </Button>
+          {filterOptions.map((option, index) => {
+            return (
+              <Button
+                key={index}
+                size="sm"
+                variant={option.bool ? '' : 'outline'}
+                onClick={() => switchFilter(index)}
+              >
+                {option.value}
+              </Button>
+            )
+          })}
         </div>
       </div>
       <div className="border rounded-lg overflow-hidden divide-y dark:divide-gray-850">
@@ -46,7 +78,6 @@ export default function Home() {
           <div className="hidden sm:flex">Latitude</div>
           <div className="hidden sm:flex">Longitude</div>
         </div>
-        {console.log(data)}
         {!loading && data && data.map((row, index) => (
           <RowComponent
             key={index}
@@ -67,7 +98,6 @@ export default function Home() {
             {pagination &&
             <div className="flex items-center gap-2 text-sm">
               <span className="font-medium">
-              {console.log(pagNumber)}
               {Math.min(Math.max(1, pagSize * (pagNumber - 1) + 1), pagination.total)}-
               {Math.min(pagSize * pagNumber, pagination.total)} of {pagination.total}     
               </span>

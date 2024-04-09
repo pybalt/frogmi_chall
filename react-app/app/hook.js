@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { stringify } from 'querystring';
 
 const useFeatures = (page, perPage, setPagNumber, filter) => {
 
@@ -12,14 +11,13 @@ const useFeatures = (page, perPage, setPagNumber, filter) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const query = {page, per_page: perPage}
-        filter ? query['filters[mag_type]'] = Array.of(filter) : ''
-        console.log(Array.from(filter))
-        const queryString = stringify({ page, per_page: perPage, 'filters[mag_type]': filter });
+        const filterParam = filter ? `filters[mag_type]=${filter.join(',')}` : ''
+        const pageParam = `page=${page}`
+        const perPageParam = `per_page=${perPage}`
+
         axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-        const response = await axios.get(`http://localhost:3000/api/features?${queryString}`,
+        const response = await axios.get(`http://localhost:3000/api/features?${pageParam}&${perPageParam}&${filterParam}`,
       );
-        console.log(`Response: ${Boolean(response)}`);
         setData(response.data.data);
         setLoading(false);
         setPagination(response.data.pagination);
