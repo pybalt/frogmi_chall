@@ -67,16 +67,16 @@ export default function Home() {
         </div>
       </div>
       <div className="border rounded-lg overflow-hidden divide-y dark:divide-gray-850">
-        <div className="grid grid-cols-3 p-4 items-center gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
+        <div className="grid grid-cols-3 p-4 items-center gap-4 sm:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10">
           <div className="font-semibold">Title</div>
           <div className="hidden sm:flex">Location</div>
-          <div className="hidden sm:flex">Magnitude</div>
+          <div className="hidden lg:flex">Magnitude</div>
           <div className="hidden sm:flex">Time</div>
-          <div className="hidden sm:flex">Tsunami</div>
+          <div className="hidden lg:flex">Tsunami</div>
           <div className="hidden sm:flex">Type</div>
           <div className="hidden sm:flex">URL</div>
-          <div className="hidden sm:flex">Latitude</div>
-          <div className="hidden sm:flex">Longitude</div>
+          <div className="hidden lg:flex">Latitude</div>
+          <div className="hidden lg:flex">Longitude</div>
         </div>
         {!loading && data && data.map((row, index) => (
           <RowComponent
