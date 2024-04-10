@@ -9,7 +9,7 @@ services:
       - "3000:3000"
   frontend:
     build: ./react-app
-    command: npm run start
+    command: npm run dev
     volumes:
       - ./react-app:/app
     ports:

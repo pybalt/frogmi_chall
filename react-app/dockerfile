@@ -1,18 +1,16 @@
 # Start with the official Node.js Docker image
-FROM node:20
+FROM node:latest
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json before other files
-# Utilise Docker cache to save re-installing dependencies if unchanged
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
+ENV PATH /app/node_modules/.bin:$PATH
+
 # Copy all files
 COPY . .
 
-# Expose the listening port
 EXPOSE 3000
