@@ -1,14 +1,22 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "./Link";
-const RowComponent = ({ title, location, magnitude, time, tsunami, type, url, latitude, longitude }) => {
-
+const RowComponent = ({
+  title,
+  location,
+  magnitude,
+  time,
+  tsunami,
+  type,
+  url,
+  latitude,
+  longitude,
+}) => {
   const [clicked, setClicked] = useState(1);
   const handleClick = () => {
-    setClicked(n=> n+1);
-  }
-
+    setClicked((n) => n + 1);
+  };
 
   return (
     <div className="grid text-sm grid-cols-3 p-4 items-center gap-4 sm:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10">
@@ -27,7 +35,7 @@ const RowComponent = ({ title, location, magnitude, time, tsunami, type, url, la
       <div className="hidden lg:flex">{`${longitude}`.slice(0, 8)}</div>
       <Button
         key={clicked}
-        className={`rounded-full gap-0 ml-auto hidden lg:flex animate-shake`}        
+        className={`rounded-full gap-0 ml-auto hidden lg:flex animate-shake`}
         variant="outline"
         onClick={handleClick}
       >
@@ -35,6 +43,6 @@ const RowComponent = ({ title, location, magnitude, time, tsunami, type, url, la
       </Button>
     </div>
   );
-}
+};
 
 export default RowComponent;
